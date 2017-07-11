@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/11 18:22:51 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/11 19:43:03 by mameyer          ###   ########.fr       */
+/*   Created: 2017/07/11 18:53:48 by mameyer           #+#    #+#             */
+/*   Updated: 2017/07/11 19:42:36 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		main(int argc, char **argv)
+int			check_commands(char *str)
 {
-	(void)argc;
-// PARSING TO GET ARGUMENTS
-	core(argv);
-
-	return (0);
+	if (ft_strcmp(str, "ls") == 0
+			|| ft_strcmp(str, "echo") == 0
+			|| ft_strcmp(str, "cd") == 0
+			|| ft_strcmp(str, "setenv") == 0)
+		return (1);
+	else
+		return (0);
 }
