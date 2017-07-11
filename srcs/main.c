@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:22:51 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/11 19:43:03 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/11 20:16:11 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int		main(int argc, char **argv)
 {
 	(void)argc;
-// PARSING TO GET ARGUMENTS
 	core(argv);
 
 	return (0);

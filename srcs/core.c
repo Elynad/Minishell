@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:58:22 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/11 19:42:10 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/11 20:55:53 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,30 @@ void			core(char **argv)
 {
 	pid_t		father;
 	char		*str;
+	char		*command;
+	char		**options;
 
 	ft_putstr("$> ");
 	while (get_next_line(0, &str))
 	{
-		if (ft_strcmp(str, "exit") == 0)
+		command = get_command(str);
+		options = get_opt_flg(str);
+		// parsing to get flags or options
+		if (ft_strcmp(command, "exit") == 0)
 			exit(0);
-		if (check_commands(str) == 1)
+		if (check_commands(command) == 1)
 		{
 			father = fork();
 			if (father == 0)
-			{
-				execute(str, argv);
-				ft_putstr("execute command\n");
-			}
+				execute(command, argv);
 			else
 			{
 				wait(0);
+				if (command)
+				{
+					free(command);
+					command = NULL;
+				}
 				ft_putstr("Going back in core func\n");
 				core(argv);
 			}
@@ -43,6 +50,7 @@ void			core(char **argv)
 
 void			execute(char *str, char **argv)
 {
+	ft_putstr("Executing command\n");
 	if (ft_strcmp(str, "ls") == 0)
 		execve("/bin/ls", argv, NULL);
 	else if (ft_strcmp(str, "echo") == 0)
