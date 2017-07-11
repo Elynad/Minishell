@@ -6,7 +6,7 @@
 #    By: mameyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 20:38:30 by mameyer           #+#    #+#              #
-#    Updated: 2016/11/15 15:54:12 by mameyer          ###   ########.fr        #
+#    Updated: 2017/07/11 18:49:13 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,8 @@ SRC =		ft_memset.c \
 			ft_cnt_words.c \
 			ft_print_alphabet.c \
 			ft_print_numbers.c \
-			ft_del_fb.c
+			ft_del_fb.c \
+			get_next_line.c
 
 OBJ =	$(patsubst %.c,%.o,$(SRC))
 
