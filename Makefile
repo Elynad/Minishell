@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/07/11 20:16:25 by mameyer          ###   ########.fr        #
+#    Updated: 2017/07/12 16:24:35 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,10 @@ NAME = minishell
 
 SRC =	main.c \
 		commands.c \
+		commands_2.c \
 		core.c \
-		parsing.c
+		parsing.c \
+		env_funcs.c
 
 OBJ = $(SRC:.c=.o)
 

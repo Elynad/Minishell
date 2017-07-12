@@ -6,16 +6,16 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:22:51 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/11 20:16:11 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/12 15:58:57 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int		main(int argc, char **argv)
+int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
-	core(argv);
-
+	(void)argv;
+	core(env);
 	return (0);
 }

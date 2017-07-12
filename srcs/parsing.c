@@ -6,109 +6,83 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 20:16:28 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/11 21:11:18 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/12 15:14:47 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char		*get_command(char *str)
+char		**get_options(char *str)
 {
-	char		*command;
-	int			i;
+	char	**options;
+	int		i;
+	int		j;
+	int		spaces;
 
 	i = 0;
-	while (str && str[i] && str[i] != ' ')
-		i++;
-	if (!(command = (char *)malloc(sizeof(char) * i)))
+	j = 0;
+	spaces = get_spaces(str);
+	if (!(options = (char **)malloc(sizeof(char *) * (get_spaces(str) + 2))))
 		exit(-1);
-	i = 0;
-	while (str && str[i] && str[i] != ' ')
-	{
-		command[i] = str[i];
+	while (str[i] && str[i] == ' ')
 		i++;
-	}
-	while (command[i])
-	{
-		command[i] = '\0';
+	while (str[i] && str[i] == ' ')
 		i++;
-	}
-	return (command);
-}
-
-char		**get_opt_flg(char *str)
-{
-	char		**options;
-	int			i;
-	int			sp;
-
-	i = 0;
-	sp = 0;
-	options = NULL;
-	if (str)
+	while (j < get_spaces(str) + 1)
 	{
-		while (str && str[i])
-		{
-			if (str[i] == ' ')
-				sp++;
-			i++;
-		}
-		if (!(options = (char **)malloc(sizeof(char *) * sp)))
-			exit(-1);
-		get_opt_flg_2(&options, str);
-		get_opt_flg_3(&options, str);
-		print_test(options);
+		options[j] = copy_until_nxt_sp(str, &i);
+		j++;
 	}
+	options[spaces + 1] = NULL;
 	return (options);
 }
 
-void		get_opt_flg_2(char ***options, char *str)
+char		*copy_until_nxt_sp(char *str, int *index)
 {
-	int		i;
-	int		j;
-	int		len;
+	char		*opt;
+	int			i;
+	int			j;
 
-	i = 0;
+	i = *index;
 	j = 0;
-	while (str && str[i] && str[i] != ' ')
+	while (str[i] && str[i] == ' ')
 		i++;
-	while (str && str[i] && str[i] == ' ')
+	while (str[i] && str[i] != ' ')
 		i++;
-	while (str && str[i] && *options[j])
+	if (!(opt = (char *)malloc(sizeof(char) * (i - *index + 1))))
+		exit(-1);
+	i = *index;
+	while (str[i] && str[i] != ' ')
 	{
-		len = 0;
-		while (str[i] && str[i + len] && str[i + len] != ' ')
-			len++;
-		i += len;
-		if (!(*options[j] = (char *)malloc(sizeof(char) * len)))
-			exit(-1);
+		opt[j] = str[i];
+		j++;
+		i++;
+	}
+	while (opt[j])
+	{
+		opt[j] = '\0';
 		j++;
 	}
+	*index = i;
+	while (str[*index] == ' ')
+		(*index)++;
+	return (opt);
 }
 
-void		get_opt_flg_3(char ***options, char *str)
+int			get_spaces(char *str)
 {
 	int		i;
-	int		j;
-	int		k;
+	int		sp;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	while (str && str[i] && str[i] != ' ')
-		i++;
-	while (str && str[i] && *options[j])
+	sp = 0;
+	while (str && str[i])
 	{
-		k = 0;
-		while (str && str[i + k] && str[i + k] != ' ')
-		{
-			*options[j][k] = str[i + k];
-			k++;
-		}
-		*options[j][k] = '\0';
-		i += k;
-		j++;
+		if (str[i] == ' ')
+			sp++;
+		i++;
 	}
+	return (sp);
 }
 
 void		free_opt(char **options)
@@ -131,11 +105,11 @@ void		print_test(char **options)
 	i = 0;
 	while (options && options[i])
 	{
-		ft_putstr("Option ");
+		ft_putstr("\nOption ");
 		ft_putnbr(i);
 		ft_putstr(" = ");
 		ft_putstr(options[i]);
-		ft_putchar('\n');
 		i++;
 	}
+	ft_putchar('\n');
 }
