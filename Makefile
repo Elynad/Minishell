@@ -6,7 +6,7 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/07/12 16:24:35 by mameyer          ###   ########.fr        #
+#    Updated: 2017/07/14 15:46:15 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRC =	main.c \
 		commands_2.c \
 		core.c \
 		parsing.c \
-		env_funcs.c
+		env_funcs.c \
+		unset_env_funcs.c \
+		other.c
 
 OBJ = $(SRC:.c=.o)
 

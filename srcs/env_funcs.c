@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 16:24:13 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/12 21:46:58 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/13 15:00:59 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@ char		**env_funcs(char **env, char **command)
 			ft_putendl("To few arguments called for setenv.");
 		return (env);
 	}
+	else if (ft_strcmp(command[0], "unsetenv") == 0)
+	{
+		if (command[1])
+			return (unset_env(env, command));
+		else
+			ft_putendl("To few arguments called for unsetenv");
+		return (env);
+	}
 	else
-		return (unset_env(env));
+		return (env);
 }
 
 int			check_env(char **env, char **command)
@@ -159,11 +167,6 @@ char		*set_new_env_var(char **command)
 	while (new[i + j++])
 		new[i + j] = '\0';
 	return (new);
-}
-
-char		**unset_env(char **env)
-{
-	return (env);
 }
 
 char		*copy_env_line(char **env, int index)

@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:21:52 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/12 21:43:51 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/14 15:47:07 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 
 # include "../libft/libft.h"
 # include <unistd.h>
+
+typedef struct			s_infos
+{
+	int					env_changed;
+}						t_infos;
 
 int		check_commands(char *str);		// test
 void	execute(char **command);
@@ -39,14 +44,18 @@ char		**replace_env_var(char **env, char **command, int index);
 char		*sub_replace(char **command);
 char		**create_new_var(char **env, char **command);
 
-void		core(char **env);
-void		sub_core(char *line, char **env);
-void		fork_func(char **options, char **env);
+char		**delete_env_var(char **env, char **command);
+
+void		core(char **env, t_infos *infos);
+void		sub_core(char **env);
+void		fork_func(char **options, char **env, t_infos *infos);
 int			my_commands(char **options, char **env);
 void		clear_command(void);
 
 void		print_env(char **env);
 char		**set_env(char **env, char **command);
-char		**unset_env(char **env);
+char		**unset_env(char **env, char **command);
+
+void		free_env(char **env);
 
 #endif

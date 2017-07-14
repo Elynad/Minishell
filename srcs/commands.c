@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:53:48 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/12 18:41:05 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/14 15:47:09 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int			check_commands(char *str)
 	if (ft_strcmp(str, "ls") == 0
 			|| ft_strcmp(str, "echo") == 0
 			|| ft_strcmp(str, "cd") == 0
-			|| ft_strcmp(str, "pwd") == 0
-			|| ft_strcmp(str, "unsetenv") == 0)
+			|| ft_strcmp(str, "pwd") == 0)
 		return (1);
 	else
 		return (0);
@@ -33,7 +32,7 @@ int			check_env_commands(char **str)
 		return (0);
 }
 
-void		fork_func(char **options, char **env)
+void		fork_func(char **options, char **env, t_infos *infos)
 {
 	pid_t			father;
 
@@ -52,7 +51,7 @@ void		fork_func(char **options, char **env)
 		if (options)
 			free_opt(options);
 		ft_putendl("Going back in core func");		// test
-		core(env);
+		core(env, infos);
 	}
 }
 
@@ -66,8 +65,6 @@ int			my_commands(char **options, char **env)
 	}
 	else if (ft_strcmp(options[0], "exit") == 0)
 		exit(0);
-	else if (ft_strcmp(options[0], "unsetenv") == 0)
-		env = unset_env(env);
 	else if (ft_strcmp(options[0], "env") == 0)
 		print_env(env);
 	else

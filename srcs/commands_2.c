@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 15:48:31 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/12 17:26:07 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/13 14:27:20 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ void		execute(char **command)
 		execve("/bin/echo", command, NULL);
 	else if (ft_strcmp(command[0], "cd") == 0)
 		execve("/bin/cd", command, NULL);
-	else if (ft_strcmp(command[0], "setenv") == 0)
-		execve("/bin/setenv", command, NULL);
 	else if (ft_strcmp(command[0], "pwd") == 0)
 		execve("/bin/pwd", command, NULL);
-	else if (ft_strcmp(command[0], "unsetenv") == 0)
-		execve("/bin/unsetenv", command, NULL);
 }
