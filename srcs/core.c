@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 15:14:55 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/14 16:33:47 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/24 19:13:16 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		core(char **env, t_infos *infos)
 			options = get_options(str);
 			if (check_commands(options[0]) == 1)
 				fork_func(options, env, infos);
-			else if (my_commands(options, env) != 1)
+			else if (my_commands(options, env, infos) != 1)
 				core(env, infos);
 			else if (check_env_commands(options) == 1)
 			{

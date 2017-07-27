@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 18:53:48 by mameyer           #+#    #+#             */
-/*   Updated: 2017/07/14 15:47:09 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/07/24 21:59:43 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int			check_commands(char *str)
 {
 	if (ft_strcmp(str, "ls") == 0
 			|| ft_strcmp(str, "echo") == 0
-			|| ft_strcmp(str, "cd") == 0
 			|| ft_strcmp(str, "pwd") == 0)
 		return (1);
 	else
@@ -44,7 +43,7 @@ void		fork_func(char **options, char **env, t_infos *infos)
 		exit(-1);
 	}
 	else if (father == 0)
-		execute(options);
+		execute(options, env);
 	else
 	{
 		wait(0);
@@ -55,9 +54,9 @@ void		fork_func(char **options, char **env, t_infos *infos)
 	}
 }
 
-int			my_commands(char **options, char **env)
+int			my_commands(char **options, char **env, t_infos *infos)
 {
-	(void)env;
+	(void)infos;
 	if (ft_strcmp(options[0], "clear") == 0)
 	{
 		clear_command();
@@ -67,7 +66,44 @@ int			my_commands(char **options, char **env)
 		exit(0);
 	else if (ft_strcmp(options[0], "env") == 0)
 		print_env(env);
+	else if (ft_strcmp(options[0], "cd") == 0)
+		cd_command(options, env, infos);
 	else
 		return (1);
 	return (0);
+}
+
+void		cd_command(char **options, char **env, t_infos *infos)
+{
+	char		**new_env;
+
+	new_env = NULL;
+	if (options)
+	{
+		if (!options[1]
+				|| (options[1] && options[1][0] == '~' && (!options[1][1]
+						|| options[1][1] == '/') && !options[2]))
+		{
+			if (chdir(infos->env_home) != -1)
+				new_env = change_pwd(infos->env_home, env);
+			else
+				ft_putendl("No such file or directory");
+		}
+		else if (options && options[1] && !options[2])
+		{
+			if (chdir(options[1]) != -1)
+				new_env = change_pwd(options[1], env);
+			else
+				ft_putendl("No such file or directory");
+		}
+		else if (options && options[1] && options[2])
+		{
+			ft_putstr("cd: string not in pwd: ");
+			ft_putendl(options[1]);
+		}
+	}
+	if (new_env)
+		core(new_env, infos);
+	else if (env)
+		core(env, infos);
 }

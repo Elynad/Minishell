@@ -6,19 +6,21 @@
 #    By: jlasne <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/17 10:25:59 by jlasne            #+#    #+#              #
-#    Updated: 2017/07/14 15:46:15 by mameyer          ###   ########.fr        #
+#    Updated: 2017/07/24 21:52:11 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 SRC =	main.c \
+		get_infos.c \
 		commands.c \
 		commands_2.c \
 		core.c \
 		parsing.c \
 		env_funcs.c \
 		unset_env_funcs.c \
+		change_pwd.c \
 		other.c
 
 OBJ = $(SRC:.c=.o)
