@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 10:40:44 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/24 17:53:02 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 01:37:29 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void		cd_errors(char **command, char **env, char *path)
 
 void		execute_error(char **commands, char **env, int error)
 {
-	if (error == 0)
+	if (error == 3 || error == -1)
 	{
 		ft_putstr("minishell: command not found: ");
 		if (commands[0])
@@ -44,7 +44,7 @@ void		execute_error(char **commands, char **env, int error)
 	{
 		ft_putstr("minishell: command '");
 		ft_putstr(commands[0]);
-		ft_putstr("' : Permission denied");
+		ft_putendl("' : Permission denied");
 	}
 	if (commands)
 		free_tab(commands);

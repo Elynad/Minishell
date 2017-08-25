@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 11:32:31 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/24 15:14:23 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 04:14:53 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		core(char **env)
 		}
 		else if (str && ft_strlen(str) > 0 && check_spaces(str))
 		{
-			command = str_split(str, ' ', 1);
+			command = str_split_whitespaces(str, 1);
 			check_command(command, env);
 		}
 		else
@@ -69,7 +69,7 @@ int			check(char *str)
 	a = 0;
 	while (str[a])
 	{
-		if (str[a] < 32 || str[a] > 126)
+		if ((str[a] < 32 || str[a] > 126) && (str[a] != '\t'))
 			return (-1);
 		a++;
 	}
@@ -84,7 +84,7 @@ void		secure_putstr(char *str)
 	a = 0;
 	while (str[a])
 	{
-		if (str[a] >= 33 && str[a] <= 126)
+		if (str[a] >= 32 && str[a] <= 126)
 			ft_putchar(str[a]);
 		a++;
 	}

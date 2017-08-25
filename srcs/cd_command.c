@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 18:41:52 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/24 17:54:51 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/24 20:32:05 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,28 +78,25 @@ void		cd_command_2(char **command, char **env, char *path, int isprev)
 
 void		cd_success(char **env, char **command)
 {
-	char		**setenv;
-	char		**setenv_2;
 	char		**new_env;
-	char		**new_env_2;
-	char		*line;
+	char		**new_env_buf;
+	char		*tmp_pwd;
+	char		**setenv;
+	char		buf[PATH_MAX];
 
-	line = get_env_var(env, "PWD");
-	setenv = get_setenv_commands(line, "OLDPWD");
-	new_env = replace_env_var(setenv, env, (get_env_var_line(setenv, env)));
-	free(line);
-	line = NULL;
-	line = get_env_var(env, "OLDPWD");
-	setenv_2 = get_setenv_commands(line, "PWD");
-	new_env_2 = replace_env_var(setenv_2, new_env,
-			(get_env_var_line(setenv_2, new_env)));
-	free(line);
-	line = NULL;
+	getcwd(buf, PATH_MAX);
+	tmp_pwd = get_env_var(env, "PWD");
+	setenv = get_setenv_commands(buf, "PWD");
+	new_env_buf = replace_env_var(setenv, env, (get_env_var_line(setenv, env)));
 	free_tab(setenv);
-	free_tab(setenv_2);
-	free_tab(new_env);
-	free_tab(command);
+	setenv = get_setenv_commands(tmp_pwd, "OLDPWD");
+	new_env = replace_env_var(setenv, new_env_buf,
+			(get_env_var_line(setenv, env)));
+	free(tmp_pwd);
+	tmp_pwd = NULL;
+	free_tab(new_env_buf);
+	free_tab(setenv);
 	free_tab(env);
-	core(new_env_2);
-
+	free_tab(command);
+	core(new_env);
 }

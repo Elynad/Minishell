@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 09:56:59 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/24 17:54:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 04:14:57 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			main(int argc, char **argv, char **env)
 {
-	char		**new_env;
+	char			**new_env;
 
 	(void)argc;
 	(void)argv;

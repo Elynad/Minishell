@@ -6,7 +6,7 @@
 #    By: mameyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/18 12:11:53 by mameyer           #+#    #+#              #
-#    Updated: 2017/08/24 17:54:44 by mameyer          ###   ########.fr        #
+#    Updated: 2017/08/24 23:11:18 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	main.c \
 		shlvl_funcs.c \
 		put_prompt.c \
 		str_split.c \
+		str_split_whitespaces.c
 
 OBJ = $(SRC:.c=.o)
 

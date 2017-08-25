@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/18 12:10:57 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/24 17:54:19 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 04:20:21 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <sys/stat.h>
+# include <signal.h>
 
 /*
 **		CORE
@@ -41,6 +42,7 @@ void		secure_putstr(char *str);
 
 char		**dup_env(char **env);
 char		**set_default_env(void);
+char		**str_split_whitespaces(char *str, int mfree);
 char		**str_split(char *str, char sep, int mfree);
 
 /*
@@ -111,7 +113,6 @@ void		free_tab(char **tab);
 char		**increase_shlvl(char **env);
 char		**decrease_shlvl(char **env);
 char		*dup_and_cat(char *s1, char *s2);
-char		**str_split(char *str, char sep, int free);
 int			get_rep(char **env);
 
 void		free_tab_exit(char **env);

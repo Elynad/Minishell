@@ -30,6 +30,8 @@ PROBLEMES
 		$> cd -      => OLDPATH vide								// DONE
 		$> cd ..     => no such file or directory					// CHDIR ?
 
+- Segfault en cas de modif de path sans l'avoir unset				// DONE
+
 -----------
 CRASH TESTS
 -----------

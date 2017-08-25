@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 16:59:33 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/23 14:01:25 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 01:30:55 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		setenv_command(char **command, char **env)
 	if (check_setenv_syntax(command) == -1)
 	{
 		ft_putendl("Wrong arguments for setenv.");
-		ft_putendl("Usage : setenv 'ENV_VAR' 'value' [overwrite]");
+		ft_putendl("Usage : setenv 'ENV_VAR' 'value'");
 		free_tab(command);
 		core(env);
 	}
@@ -37,19 +37,14 @@ void		setenv_command_2(char **command, char **env)
 	int			line;
 
 	line = get_env_var_line(command, env);
-	if (line != -1 && command[3][0] == '0')
-	{
-		free_tab(command);
-		core(env);
-	}
-	else if (line == -1)
+	if (line == -1)
 	{
 		new_env = add_env_var(command, env);
 		free_tab(command);
 		free_tab(env);
 		core(new_env);
 	}
-	else if (line != -1 && command[3][0] != '0')
+	else if (line != -1)
 	{
 		new_env = replace_env_var(command, env, line);
 		free_tab(env);
@@ -113,9 +108,7 @@ char		**replace_env_var(char **command, char **env, int line)
 
 int			check_setenv_syntax(char **command)
 {
-	if (!(command[1]) || !(command[2]) || !(command[3])
-			|| (command[3] && command[3][0] < 48)
-			|| (command[3] && command[3][0] > 57))
+	if (!(command[1]) || !(command[2]))
 		return (-1);
 	else
 		return (0);

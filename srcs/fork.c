@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 14:15:46 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/23 21:25:57 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/25 04:14:50 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void		execute(char **commands, char **env)
 		execute_current(commands, env);
 	paths = get_paths(env);
 	a = 0;
-	while (paths[a])
+	while (paths && paths[a])
 	{
 		if (paths[a][ft_strlen(paths[a]) - 1] != '/')
 			binary_path = get_binary_path(paths[a], commands[0]);
@@ -62,7 +62,7 @@ void		execute(char **commands, char **env)
 			break ;
 		a++;
 	}
-	if (!(paths[a]))
+	if (error == 2 || error == 3 || error == -1)
 		execute_error(commands, env, error);
 	else
 		execve(binary_path, commands, env);
@@ -90,22 +90,26 @@ void		execute_current(char **commands, char **env)
 
 int			test_access(char *path)
 {
+	int				a;
+	struct stat		sb;
+
+	a = -1;
 	if (access(path, F_OK) == 0)
 	{
 		if (access(path, X_OK) == 0)
-			return (1);
+			a = 1;
 		else
-			return (2);
+			a = 2;
 	}
-	else
-		return (0);
+	else if (lstat(path, &sb) != -1)
+		a = 3;
+	return (a);
 }
 
 char		**get_paths(char **env)
 {
 	char		**paths;
 	char		*buffer;
-	char		*buffer_2;
 
 	buffer = get_env_var(env, "PATH");
 	if (ft_strlen(buffer) != 0)
@@ -115,11 +119,6 @@ char		**get_paths(char **env)
 		buffer = NULL;
 	}
 	else
-	{
-		buffer_2 = dup_and_cat(DEFAULT_PATH_1, DEFAULT_PATH_2);
-		paths = str_split(buffer_2, ':', 0);
-		free(buffer_2);
-		buffer_2 = NULL;
-	}
+		return (NULL);
 	return (paths);
 }
