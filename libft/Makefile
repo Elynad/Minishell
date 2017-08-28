@@ -6,7 +6,7 @@
 #    By: mameyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 20:38:30 by mameyer           #+#    #+#              #
-#    Updated: 2017/08/23 19:13:10 by mameyer          ###   ########.fr        #
+#    Updated: 2017/08/28 19:47:05 by mameyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ SRC =		ft_memset.c \
 
 OBJ =	$(patsubst %.c,%.o,$(SRC))
 
-HEADER = ft.h get_next_line.h
+HEADER = ft.h
 
 all : $(NAME)
 
