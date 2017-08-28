@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 14:15:46 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/25 04:14:50 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/28 19:28:13 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void		execute(char **commands, char **env)
 	if (commands && commands[0] && commands[0][0]
 			&& (commands[0][0] == '.' || commands[0][0] == '/'))
 		execute_current(commands, env);
-	paths = get_paths(env);
-	a = 0;
-	while (paths && paths[a])
+	if ((paths = get_paths(env)) == NULL)
+		error = -1;
+	a = -1;
+	while (paths && paths[++a])
 	{
 		if (paths[a][ft_strlen(paths[a]) - 1] != '/')
 			binary_path = get_binary_path(paths[a], commands[0]);
@@ -60,7 +61,6 @@ void		execute(char **commands, char **env)
 		error = test_access(binary_path);
 		if (error == 1)
 			break ;
-		a++;
 	}
 	if (error == 2 || error == 3 || error == -1)
 		execute_error(commands, env, error);
@@ -73,6 +73,7 @@ void		execute_current(char **commands, char **env)
 	char		*path;
 	char		*path_2;
 	char		buf[PATH_MAX];
+	int			error;
 
 	getcwd(buf, PATH_MAX);
 	if (buf[ft_strlen(buf) - 1] != '/'
@@ -85,7 +86,11 @@ void		execute_current(char **commands, char **env)
 		path = ft_strdup(commands[0]);
 	else
 		path = dup_and_cat(buf, commands[0]);
-	execve(path, commands, env);
+	error = test_access(path);
+	if (error == -1 || error == 2 || error == 3)
+		execute_error(commands, env, error);
+	else
+		execve(path, commands, env);
 }
 
 int			test_access(char *path)

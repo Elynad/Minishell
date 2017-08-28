@@ -32,6 +32,8 @@ PROBLEMES
 
 - Segfault en cas de modif de path sans l'avoir unset				// DONE
 
+- En cas de /dir/commande_inexistante, fork
+
 -----------
 CRASH TESTS
 -----------

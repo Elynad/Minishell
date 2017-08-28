@@ -6,7 +6,7 @@
 /*   By: mameyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/18 12:10:57 by mameyer           #+#    #+#             */
-/*   Updated: 2017/08/25 04:20:21 by mameyer          ###   ########.fr       */
+/*   Updated: 2017/08/28 19:28:14 by mameyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char		**get_paths(char **env);
 int			test_access(char *path);
 char		*get_binary_path(char *path, char *command);
 void		execute_current(char **comands, char **env);
+
+void		check_command_2(char **commands, char **env, int type);
 
 /*
 **		OTHER
